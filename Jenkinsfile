@@ -20,9 +20,21 @@ pipeline {
                 bat 'type build-report.txt'
             }
         }
+
+        stage('Deploy') {
+            steps {
+                bat 'echo Deploy completed > deploy-report.txt'
+                bat 'type deploy-report.txt'
+            }
+        }
     }
-stage('Deploy') {
-    steps {
-        echo 'Deploying application'
+
+    post {
+        success {
+            echo 'Pipeline completed successfully'
+        }
+        failure {
+            echo 'Pipeline failed'
+        }
     }
 }
